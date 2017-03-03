@@ -1,0 +1,88 @@
+@mixin create-li ($color) {
+    float: left;
+
+    a {
+        color: #FFF;
+        display: block;
+        background: $color;
+        text-decoration: none;
+        position: relative;
+        height: 40px;
+        line-height: 40px;
+        padding: 0 10px 0 5px;
+        text-align: center;
+        margin-right: 23px;
+    }
+
+    &:first-child {
+        a {
+            padding-left: 15px;
+            @include border-radius(4px 0 0 4px);
+
+            &:before {
+                border: none;
+            }
+        }
+    }
+
+    &:last-child {
+        a {
+            padding-right: 15px;
+            @include border-radius(0 4px 4px 0);
+
+            &:after {
+                border: none;
+            }
+        }
+    }
+
+    a {
+        &:after,
+        &:before {
+            content: "";
+            position: absolute;
+            top: 0;
+            border: 0 solid $color;
+            border-width: 20px 10px;
+            width: 0;
+            height: 0;
+        }
+
+        &:before {
+            left: -20px;
+            border-left-color: transparent;
+        }
+
+        &:after {
+            left: 100%;
+            border-color: transparent;
+            border-left-color: $color;
+        }
+
+        &:hover {
+            background-color: $green;
+
+            &:before {
+                border-color: $green;
+                border-left-color: transparent;
+            }
+
+            &:after {
+                border-left-color: $green;
+            }
+        }
+
+        &:active {
+            background-color: $green-darken;
+
+            &:before {
+                border-color: $green-darken;
+                border-left-color: transparent;
+            }
+
+            &:after {
+                border-left-color: $green-darken;
+            }
+        }
+    }
+}

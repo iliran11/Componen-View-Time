@@ -1,0 +1,29 @@
+@import "compass/css3";
+@import "./breadcrumbMixin";
+$blue-gray: #34495e;
+$blue-gray-darken: #2c3e50;
+$blue: #3498db;
+$blue-darken: #2980b9;
+$deep-blue: #052251;
+$green: #1abc9c;
+$green-darken: #16a085; // * {
+
+#breadcrumb {
+    list-style: none;
+    display: inline-block;
+
+    .icon {
+        font-size: 14px;
+    }
+
+    li {
+        @include create-li($blue);
+        width: 25%;
+    }
+
+    li.active {
+        @include create-li($deep-blue);
+    }
+    padding: 0;
+    width: 100%;
+}
