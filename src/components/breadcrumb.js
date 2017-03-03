@@ -8,7 +8,6 @@ class BreadCrumb extends React.Component {
         this.state = this.initialState;
     }
     render() {
-        console.log(this.props);
         return (
             <div>
                 <ul id="breadcrumb">

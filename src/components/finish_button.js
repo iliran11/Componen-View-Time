@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
+import {Link} from 'react-router';
 
 class FinishButton extends React.Component {
   render () {
     return (
-      <div>
-        finish button
-      </div>
+      <Link to={this.props.redirectButtonUrl} className="btn btn-primary">
+          Go To {this.props.redirectButtonUrl}
+      </Link>
     );
   }
 }
