@@ -3,6 +3,7 @@ import BreadCrumb from './breadcrumb';
 import OnlineTimer from './online_timer';
 import FinishButton from './finish_button';
 import TimeSummary from './time_summary';
+import FinishLine from './finish_line';
 import Form from './form.js';
 
 //how to pass props to {props.children} http://stackoverflow.com/questions/32370994/how-to-pass-props-to-this-props-children
@@ -10,18 +11,18 @@ import Form from './form.js';
 export default class App extends Component {
     constructor(props) {
         super(props);
-        this.visitTimesSummary = {
-          personalDetails: null,
-          address: null,
-          contact: null
-        };
-        this.updateVisitTime = this.updateVisitTime.bind(this);
+        this.updateVisitTimes = this.updateVisitTimes.bind(this);
+        this.visitTimesFactory = this.visitTimesFactory.bind(this);
+        this.visitTimesFactory();
     }
     render() {
         const pathData = this.getPathRelatedData(this.props.location.pathname);
         const form = React.Children.map(this.props.children, child => {
             if (child.type.name === "Form") {
-                return <Form key={pathData.form.key} data={pathData.form} updateTimeSummary={this.updateVisitTime}/>
+                return <Form key={pathData.form.key} data={pathData.form} updateTimeSummary={this.updateVisitTimes}/>
+            }
+            if (child.type.name === "FinishLine") {
+                return <FinishLine resetTimesSummary={this.visitTimesFactory} timesSummary = {this.visitTimesSummary}/>
             }
             return child;
         })
@@ -38,7 +39,7 @@ export default class App extends Component {
                         {form}
                     </div>
                     <div id="summary" className="col-md-6">
-                        <TimeSummary data = {this.visitTimesSummary}/>
+                        <TimeSummary data={this.visitTimesSummary}/>
                     </div>
                 </div>
             </div>
@@ -55,36 +56,52 @@ export default class App extends Component {
             },
             form: {
                 fields: [],
-                redirectButtonUrl: null,
-                key: null
+                redirectUrl: null,
+                key: null,
+                submitButtonText:null,
             }
         };
         switch (path) {
             case '/':
                 data.breadCrumb.personalDetails = "active";
                 data.form.fields = ["ID Number", "First Name", "Last Name"];
-                data.form.redirectButtonUrl = "/address"
+                data.form.redirectUrl = "/address"
                 data.form.key = "personalDetails";
+                data.form.submitButtonText = "Submit"
 
                 break;
             case '/address':
                 data.breadCrumb.address = "active";
                 data.form.fields = ["Street", "City", "Country"];
-                data.form.redirectButtonUrl = "/contact";
+                data.form.redirectUrl = "/contact";
                 data.form.key = "address";
+                data.form.submitButtonText = "Submit"
                 break;
             case '/contact':
                 data.breadCrumb.contact = "active";
                 data.form.fields = ["Phone", "E-Mail"];
-                data.form.redirectButtonUrl = "summary";
+                data.form.redirectUrl = "summary";
                 data.form.key = "contact";
+                data.form.submitButtonText = "Thank you! Please Finish"
+
         }
         return data;
 
     }
 
-    updateVisitTime (prop,time) {
-      this.visitTimesSummary[prop] = time;
+    updateVisitTimes(prop, time) {
+        this.visitTimesSummary[prop].rowText = time.toPrecision(2) + ' Seconds';
+        this.visitTimesSummary[prop].class = 'success';
+    }
+    visitTimesFactory() {
+      const visitTimeRow = function() {
+          return {rowText: '', class: ''}
+      }
+      this.visitTimesSummary = {
+          personalDetails: new visitTimeRow(),
+          address: new visitTimeRow(),
+          contact: new visitTimeRow()
+      };
     }
 
 }

@@ -1,12 +1,14 @@
 import React, {Component} from 'react';
 import OnlineTimer from './online_timer';
-import FinishButton from './finish_button.js'
+import FinishButton from './finish_button.js';
+import  {Route, IndexRoute} from 'react-router';
 
 class Form extends React.Component {
     constructor(props) {
         super(props);
     }
     render() {
+        console.log (this.props);
         this.fields = this.props.data.fields.map((field) => {
             return (
                 <div key={field} className="form-group">
@@ -17,11 +19,18 @@ class Form extends React.Component {
                 </div>
             )
         })
+        const dosomething = function (e) {
+          e.preventDefault();
+
+          console.log ("submiteted");
+}
         return (
             <div>
-                <form>{this.fields}</form>
-                <OnlineTimer/>
-                <FinishButton redirectButtonUrl={this.props.data.redirectButtonUrl}/>
+                <form onSubmit= {dosomething} action='/address'>
+                  {this.fields}
+                  <OnlineTimer/>
+                  <FinishButton redirectUrl={this.props.data.redirectUrl} label = {this.props.data.submitButtonText}/>
+                </form>
             </div>
         )
     }
