@@ -22,7 +22,7 @@ export default class App extends Component {
                 return <Form key={pathData.form.key} data={pathData.form} updateTimeSummary={this.updateVisitTimes}/>
             }
             if (child.type.name === "FinishLine") {
-                return <FinishLine resetTimesSummary={this.visitTimesFactory} timesSummary = {this.visitTimesSummary}/>
+                return <FinishLine resetTimesSummary={this.visitTimesFactory} timesSummary={this.visitTimesSummary}/>
             }
             return child;
         })
@@ -58,7 +58,8 @@ export default class App extends Component {
                 fields: [],
                 redirectUrl: null,
                 key: null,
-                submitButtonText:null,
+                submitButtonText: null,
+                timer: true
             }
         };
         switch (path) {
@@ -67,7 +68,7 @@ export default class App extends Component {
                 data.form.fields = ["ID Number", "First Name", "Last Name"];
                 data.form.redirectUrl = "/address"
                 data.form.key = "personalDetails";
-                data.form.submitButtonText = "Submit"
+                data.form.submitButtonText = "Submit";
 
                 break;
             case '/address':
@@ -75,15 +76,17 @@ export default class App extends Component {
                 data.form.fields = ["Street", "City", "Country"];
                 data.form.redirectUrl = "/contact";
                 data.form.key = "address";
-                data.form.submitButtonText = "Submit"
+                data.form.submitButtonText = "Submit";
                 break;
             case '/contact':
                 data.breadCrumb.contact = "active";
                 data.form.fields = ["Phone", "E-Mail"];
-                data.form.redirectUrl = "summary";
+                data.form.redirectUrl = "/summary";
                 data.form.key = "contact";
-                data.form.submitButtonText = "Thank you! Please Finish"
-
+                data.form.submitButtonText = "Thank you! Please Finish";
+                break;
+            case '/summary':
+                data.breadCrumb.summary = "active";
         }
         return data;
 
@@ -94,14 +97,14 @@ export default class App extends Component {
         this.visitTimesSummary[prop].class = 'success';
     }
     visitTimesFactory() {
-      const visitTimeRow = function() {
-          return {rowText: '', class: ''}
-      }
-      this.visitTimesSummary = {
-          personalDetails: new visitTimeRow(),
-          address: new visitTimeRow(),
-          contact: new visitTimeRow()
-      };
+        const visitTimeRow = function() {
+            return {rowText: '', class: ''}
+        }
+        this.visitTimesSummary = {
+            personalDetails: new visitTimeRow(),
+            address: new visitTimeRow(),
+            contact: new visitTimeRow()
+        };
     }
 
 }

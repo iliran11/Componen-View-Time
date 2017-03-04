@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router';
+import {browserHistory} from 'react-router';
 
 class FinishButton extends React.Component {
     constructor(props) {
@@ -17,13 +18,12 @@ class FinishButton extends React.Component {
     }
     render() {
         return (
-          <Link to={this.props.redirectUrl} style = {this.style.a}>
-          <button className="btn btn-primary" style={this.style.button} type="submit">
+          <button  onClick = {this.props.onClick} className="btn btn-primary" style={this.style.button} type="submit">
                     <span>{this.props.label}</span>
          </button>
-       </Link>
         );
     }
+
 }
 
 export default FinishButton;

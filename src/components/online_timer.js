@@ -23,19 +23,25 @@ class OnlineTimer extends React.Component {
             header: {
               color:'white',
               marginTop: '10px',
+              padding:'5px',
             },
             counter: {
               color: 'white',
+              padding:'5px',
 
             }
         }
     }
     render() {
+        if (this.props.display) {
+          this.styles.container.display = 'block';
+        } else {
+          this.styles.container.display = 'none';
+        }
         return (
             <div style = {this.styles.container}>
-                <h5 style = {this.styles.header}>Seconds Since entering this page
-                </h5>
-                <h6 style = {this.styles.counter}>{this.state.time}</h6>
+                <h2 style = {this.styles.header}>Visit Time Counter</h2>
+                <h3 style = {this.styles.counter}>{this.state.time}</h3>
             </div>
         );
     }
@@ -51,7 +57,7 @@ class OnlineTimer extends React.Component {
         this.timeDifference = this.timeDifference +((new Date()) - this.timeCounter)
         this.timeCounter = (new Date ());
         this.setState({
-            time: (this.timeDifference / 1000).toPrecision(2)
+            time: (this.timeDifference / 1000).toFixed(2)
         })
     }
 

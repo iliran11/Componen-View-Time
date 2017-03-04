@@ -20,7 +20,7 @@ class BreadCrumb extends React.Component {
                     <li className={this.props.isActive.contact}>
                         <a href="">Contacts</a>
                     </li>
-                    <li className="">
+                    <li className={this.props.isActive.summary}>
                         <a href="">Summary</a>
                     </li>
                 </ul>
