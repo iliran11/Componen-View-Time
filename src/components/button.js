@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Link} from 'react-router';
 import {browserHistory} from 'react-router';
 
-class FinishButton extends React.Component {
+class Button extends React.Component {
     constructor(props) {
         super(props);
         this.style = {
@@ -26,4 +26,4 @@ class FinishButton extends React.Component {
 
 }
 
-export default FinishButton;
+export default Button;

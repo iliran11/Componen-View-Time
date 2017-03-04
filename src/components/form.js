@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import OnlineTimer from './online_timer';
-import FinishButton from './finish_button.js';
+import Button from './button.js';
 import {Route, IndexRoute} from 'react-router';
 import {browserHistory} from 'react-router';
 
@@ -43,7 +43,7 @@ class Form extends React.Component {
                     </div>
                     <span ref="error-message" style={this.styles.errorMessage}/>
                     <OnlineTimer display={this.options.timer}/>
-                    <FinishButton label={this.options.submitButtonText}/>
+                    <Button label={this.options.submitButtonText}/>
                 </form>
             </div>
         )

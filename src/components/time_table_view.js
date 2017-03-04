@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 
-class TimeSummary extends React.Component {
+class TimeTableView extends React.Component {
     render() {
         const personalDetails = this.props.data.personalDetails;
         const address = this.props.data.address;
@@ -35,4 +35,4 @@ class TimeSummary extends React.Component {
     }
 }
 
-export default TimeSummary;
+export default TimeTableView;

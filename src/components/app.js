@@ -1,9 +1,8 @@
 import React, {Component} from 'react';
 import BreadCrumb from './breadcrumb';
 import OnlineTimer from './online_timer';
-import FinishButton from './finish_button';
-import TimeSummary from './time_summary';
-import FinishLine from './finish_line';
+import TimeTableView from './time_table_view';
+import SummaryView from './summary_view';
 import Form from './form.js';
 
 //how to pass props to {props.children} http://stackoverflow.com/questions/32370994/how-to-pass-props-to-this-props-children
@@ -21,8 +20,8 @@ export default class App extends Component {
             if (child.type.name === "Form") {
                 return <Form key={pathData.form.key} data={pathData.form} updateTimeSummary={this.updateVisitTimes}/>
             }
-            if (child.type.name === "FinishLine") {
-                return <FinishLine resetTimesSummary={this.visitTimesFactory} timesSummary={this.visitTimesSummary}/>
+            if (child.type.name === "SummaryView") {
+                return <SummaryView resetTimesSummary={this.visitTimesFactory} timesSummary={this.visitTimesSummary}/>
             }
             return child;
         })
@@ -39,7 +38,7 @@ export default class App extends Component {
                         {form}
                     </div>
                     <div id="summary" className="col-md-6">
-                        <TimeSummary data={this.visitTimesSummary}/>
+                        <TimeTableView data={this.visitTimesSummary}/>
                     </div>
                 </div>
             </div>
