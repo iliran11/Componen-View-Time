@@ -3,11 +3,13 @@ import OnlineTimer from './online_timer';
 import FinishButton from './finish_button.js'
 
 class Form extends React.Component {
-    handleSubmit() {}
+    constructor(props) {
+        super(props);
+    }
     render() {
-        this.fields = this.props.fields.map((field) => {
+        this.fields = this.props.data.fields.map((field) => {
             return (
-                <div key = {field} className="form-group">
+                <div key={field} className="form-group">
                     <label>
                         {field}
                     </label>
@@ -19,11 +21,17 @@ class Form extends React.Component {
             <div>
                 <form>{this.fields}</form>
                 <OnlineTimer/>
-                <FinishButton redirectButtonUrl = {this.props.redirectButtonUrl}/>
+                <FinishButton redirectButtonUrl={this.props.data.redirectButtonUrl}/>
             </div>
         )
     }
     componentWillMount() {
+        this.mountingTime = new Date()
+    }
+    componentWillUnmount() {
+        const visitTime = ((new Date()) - this.mountingTime)/1000;
+        this.props.updateTimeSummary(this.props.data.key, visitTime);
+
     }
 }
 

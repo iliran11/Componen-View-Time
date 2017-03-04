@@ -10,12 +10,18 @@ import Form from './form.js';
 export default class App extends Component {
     constructor(props) {
         super(props);
+        this.visitTimesSummary = {
+          personalDetails: null,
+          address: null,
+          contact: null
+        };
+        this.updateVisitTime = this.updateVisitTime.bind(this);
     }
     render() {
         const pathData = this.getPathRelatedData(this.props.location.pathname);
         const form = React.Children.map(this.props.children, child => {
             if (child.type.name === "Form") {
-                return <Form key={pathData.form.key} fields={pathData.form.fields} redirectButtonUrl={pathData.form.redirectButtonUrl}/>
+                return <Form key={pathData.form.key} data={pathData.form} updateTimeSummary={this.updateVisitTime}/>
             }
             return child;
         })
@@ -28,11 +34,11 @@ export default class App extends Component {
                     </div>
                 </div>
                 <div className="row">
-                    <div id="form-container" className="col-md-9">
+                    <div id="form-container" className="col-md-6">
                         {form}
                     </div>
-                    <div id="summary" className="col-md-3">
-                        <TimeSummary/>
+                    <div id="summary" className="col-md-6">
+                        <TimeSummary data = {this.visitTimesSummary}/>
                     </div>
                 </div>
             </div>
@@ -75,6 +81,10 @@ export default class App extends Component {
         }
         return data;
 
+    }
+
+    updateVisitTime (prop,time) {
+      this.visitTimesSummary[prop] = time;
     }
 
 }

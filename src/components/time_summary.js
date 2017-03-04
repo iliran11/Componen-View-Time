@@ -10,18 +10,20 @@ class TimeSummary extends React.Component {
             <th>Visit Time</th>
           </tr>
         </thead>
+        <tbody>
         <tr>
           <td>Peronal Details</td>
-          <td>84 Seconds</td>
+          <td>{this.props.data.personalDetails} Seconds</td>
         </tr>
         <tr>
           <td>Address </td>
-          <td>72 Seconds</td>
+          <td>{this.props.data.address} Seconds</td>
         </tr>
         <tr>
           <td>Contacts </td>
-          <td>42 Seconds</td>
+          <td>{this.props.data.contact} Seconds</td>
         </tr>
+      </tbody>
       </table>
     );
   }
